@@ -1,0 +1,122 @@
+:root {
+  --background-gradient: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.3) 2px,
+    rgba(255, 255, 255, 0.3) 4px
+  );
+  --text-color: #1a1a1a;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  /* background-image: var(--background-gradient); */
+  background-size: 4px 100%;
+  background-position: 0 0;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: var(--text-color);
+  font-family: "blow-up";
+  font-size: 15rem;
+  text-align: center;
+  margin: 0;
+  padding: 3.5rem 2rem;
+  letter-spacing: -0.2em;
+  white-space: nowrap;
+  height: 100vh;
+  border-left: 2px solid #6f6f6f;
+}
+
+.letter {
+  vertical-align: middle;
+  width: 7.5rem;
+  margin-bottom: 3rem;
+  height: 16rem;
+  display: inline-block;
+  text-shadow: -2px -2px 0 #6f6f6f, 2px -2px 0 #6f6f6f, -2px 2px 0 #6f6f6f,
+    2px 2px 0 #6f6f6f;
+}
+
+p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--text-color);
+}
+
+.divider {
+  position: absolute;
+  top: 3rem;
+  border-top: 2px solid #6f6f6f;
+  margin: 10px 0 0 0;
+  width: 100%;
+}
+
+.vertDivider {
+  border-left: 2px solid #6f6f6f;
+  height: 100vh;
+  position: absolute;
+  left: 18%;
+}
+
+@media only screen and (max-width: 1080px) {
+  h1 {
+    font-size: 10rem;
+    letter-spacing: -0.12em;
+    padding: 4.25rem 1.5rem;
+  }
+
+  .letter {
+    width: 4rem;
+    height: 10rem;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  h1 {
+    font-size: 8rem;
+    letter-spacing: -0.1em;
+    padding: 4.25rem 1.5rem;
+  }
+
+  .letter {
+    width: 3rem;
+    height: 8rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 6rem;
+    letter-spacing: -0.08em;
+    padding: 4.25rem 1.5rem;
+  }
+
+  .letter {
+    width: 2.5rem;
+    height: 6rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 4.5rem;
+    letter-spacing: -0.06em;
+    padding: 4.25rem 1.5rem;
+  }
+
+  .letter {
+    width: 2rem;
+    height: 5rem;
+  }
+}
