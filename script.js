@@ -1,99 +1,97 @@
-function getRandomFontFamily() {
-  // Array of font family names
-  var fonts = [
-    "synthemesc",
-    "blow-up",
-    "lores-12",
-    "imaginaryfriend-bb",
-    "joschmi",
-    "reross-quadratic",
-    "alfarn",
-    "eckmannpsych-medium",
-    "permanent-marker-pro",
-    "puffin-arcade-liquid",
-    "puffin-arcade-nerf",
-    "good-karma-caps",
-    "duffy-script",
-    "parry",
-    "cheee-variable",
-  ];
+const textInput = document.getElementById("text-input");
+const dynamicText = document.getElementById("dynamic-text");
+const toggleButton = document.getElementById("toggle-animation");
+const speedInput = document.getElementById("speed-input");
 
-  // Generate a random index to select a font family from the array
-  var randomIndex = Math.floor(Math.random() * fonts.length);
-  return fonts[randomIndex];
-}
+// List of fonts to randomly select from
+const fonts = [
+  "synthemesc",
+  "blow-up",
+  "lores-12",
+  "imaginaryfriend-bb",
+  "joschmi",
+  "reross-quadratic",
+  "alfarn",
+  "eckmannpsych-medium",
+  "permanent-marker-pro",
+  "puffin-arcade-liquid",
+  "puffin-arcade-nerf",
+  "good-karma-caps",
+  "duffy-script",
+  "parry",
+  "cheee-variable",
+];
 
-function updateFontFamily(element) {
-  // Get the current font family of the element
-  var currentFont = element.style.fontFamily;
-  // Get a random font family
-  var randomFont = getRandomFontFamily();
+// Animation settings
+let animateFonts = true;
+let animationInterval;
 
-  // Update the font family if it's different from the current one
-  if (currentFont !== randomFont) {
-    element.style.fontFamily = randomFont;
+// Function to update dynamic text
+function updateDynamicText() {
+  const text = textInput.value;
+  dynamicText.innerHTML = "";
+
+  // Create a span for each letter and apply a random font
+  for (let i = 0; i < text.length; i++) {
+    const letter = text[i];
+    const span = document.createElement("span");
+    span.textContent = letter;
+    span.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+    dynamicText.appendChild(span);
   }
 }
 
-function setInitialFontFamilies() {
-  var elements = document.querySelectorAll(".letter");
-
-  // Set the font family for the first three spans
-  for (var i = 0; i < 3; i++) {
-    var element = elements[i];
-    var font = getRandomFontFamily();
-    element.style.fontFamily = font;
-  }
-
-  // Set the font family for the remaining spans
-  for (var i = 3; i < elements.length; i++) {
-    var element = elements[i];
-    var font = getRandomFontFamily();
-    element.style.fontFamily = font;
+// Function to animate fonts
+function animateFontsInterval() {
+  const spans = dynamicText.children;
+  for (let i = 0; i < spans.length; i++) {
+    spans[i].style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
   }
 }
 
-var animationId; // Store the animation ID for canceling
-var startTime; // Track the start time of hovering
+// Function to update animation interval
+function updateAnimationInterval() {
+  clearInterval(animationInterval);
+  const speed = 2000 - parseInt(speedInput.value, 10) + 50; // Reverse the slider value
+  animationInterval = setInterval(animateFontsInterval, speed);
+}
 
-var elements = document.querySelectorAll(".letter");
+// Initialize dynamic text with default value
+updateDynamicText();
 
-// Add event listeners for hover events on each letter
-elements.forEach(function (element) {
-  element.addEventListener("mouseenter", function () {
-    startTime = performance.now(); // Get the current time when hovering starts
+// Initialize animation interval with default speed
+updateAnimationInterval();
 
-    function animateFontChange(timestamp) {
-      // Calculate the elapsed time since hovering started
-      var elapsedTime = timestamp - startTime;
-
-      // Calculate the animation speed based on the elapsed time
-      var speed = Math.max(0.5 - elapsedTime * 0.00005, 0.05); // Maximum speed of 0.5 seconds (slower animation)
-
-      // Update the font family for the hovered element
-      updateFontFamily(element);
-
-      // Continue the animation if the speed is greater than 0
-      if (speed > 0) {
-        animationId = requestAnimationFrame(animateFontChange);
-      }
+// Listen for input events on the text input field
+textInput.addEventListener("input", () => {
+  updateDynamicText();
+  // Clear animation interval while typing
+  clearInterval(animationInterval);
+  // Restart animation interval after typing stops
+  setTimeout(() => {
+    if (animateFonts) {
+      updateAnimationInterval();
     }
-
-    // Start the animation loop
-    animateFontChange(performance.now());
-  });
-
-  element.addEventListener("mouseleave", function () {
-    cancelAnimationFrame(animationId); // Cancel the animation when hovering ends
-  });
+  }); // 1s delay
 });
 
-// Set the initial font families
-setInitialFontFamilies();
+// Listen for input events on the speed input field
+speedInput.addEventListener("input", updateAnimationInterval);
 
-setInterval(function () {
-  // Update the font family for each letter
-  elements.forEach(function (element) {
-    updateFontFamily(element);
-  });
-}, 1900);
+const sliderContainer = document.querySelector(".slider-container");
+
+// Toggle font animation
+toggleButton.addEventListener("click", () => {
+  animateFonts = !animateFonts;
+  toggleButton.classList.toggle("on");
+  sliderContainer.classList.toggle("hidden");
+  if (animateFonts) {
+    updateAnimationInterval();
+  } else {
+    clearInterval(animationInterval);
+  }
+});
+
+// Initialize toggle button state
+toggleButton.classList.add("on"); // set initial state to on
+sliderContainer.classList.remove("hidden"); // ensure slider is visible initially

@@ -3,24 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://use.typekit.net/tdm8gnr.css" />
     <title>Oddjobs.design</title>
+    <link rel="stylesheet" href="https://use.typekit.net/tdm8gnr.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
-    <!-- <div class="vertDivider"></div> -->
-    <main>
-      <div class="divider"></div>
-      <h1>
-        <span class="letter">O</span>
-        <span class="letter">D</span>
-        <span class="letter">D</span>
-        <span class="letter">J</span>
-        <span class="letter">O</span>
-        <span class="letter">B</span>
-        <span class="letter">S</span>
-      </h1>
-    </main>
+    <div class="sideNav">
+      <input
+        id="text-input"
+        type="text"
+        placeholder="Type something..."
+        value="oddjobs.design"
+      />
+      <div class="control-container">
+        <div class="slider-container">
+          <div class="slider-labels">
+            <span>Slower</span>
+            <span>Faster</span>
+          </div>
+          <input
+            id="speed-input"
+            type="range"
+            min="50"
+            max="2000"
+            step="50"
+            value="1000"
+          />
+        </div>
+        <div class="toggle">
+          <p class="label">Animate?</p>
+          <button id="toggle-animation" class="on"></button>
+        </div>
+      </div>
+    </div>
+    <div class="titleContainer">
+      <h1 id="dynamic-text"></h1>
+    </div>
 
     <script src="script.js"></script>
   </body>
