@@ -10,12 +10,18 @@
 
   <body>
     <div class="sideNav">
-      <input
-        id="text-input"
-        type="text"
-        placeholder="Type something..."
-        value="oddjobs.design"
-      />
+      <div class="sideNavHeader">
+        <label class="visually-hidden" for="text-input">Text to animate</label>
+        <input
+          id="text-input"
+          type="text"
+          value="oddjobs.design"
+        />
+        <div class="inputNote" aria-hidden="true">
+          <img class="inputNoteArrow" src="assets/Arrow.svg" alt="" />
+          <p class="inputNoteText">type in here</p>
+        </div>
+      </div>
       <div class="control-container">
         <div class="slider-container">
           <div class="slider-labels">
